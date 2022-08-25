@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 //Routes
-app.get("/", (req,res) =>{
+app.get("/asksomething", (req,res) =>{
     
     Question.findAll({raw: true, order:[
         ['id','DESC']
@@ -37,11 +37,11 @@ app.get("/", (req,res) =>{
 
 });
 
-app.get("/ask",(req,res) => {
+app.get("/asksomething/question",(req,res) => {
     res.render("ask.ejs");
 });
 
-app.get("/ask/:id",(req,res) => {
+app.get("/asksomething/question/:id",(req,res) => {
     const id = req.params.id;
     Question.findOne({
         where: {id: id}
@@ -63,7 +63,7 @@ app.get("/ask/:id",(req,res) => {
     }); 
 });
 
-app.post("/savequestion",(req,res) => {
+app.post("/asksomething/savequestion",(req,res) => {
     const title = req.body.title;
     const description = req.body.description;
     Question.create({
@@ -74,14 +74,14 @@ app.post("/savequestion",(req,res) => {
     });
 });
 
-app.post("/answer", (req, res) => {
+app.post("/asksomething/answer", (req, res) => {
     const body = req.body.body;
     const questionId = req.body.question;
     Answer.create({
         body: body,
         questionId: questionId
     }).then(() => {
-        res.redirect("/ask/"+questionId);
+        res.redirect("/asksomething/question/"+questionId);
     });
 })
 

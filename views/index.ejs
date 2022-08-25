@@ -6,7 +6,7 @@
         <hr>
         <h1 id="question-id">Questions</h1>
         <br>
-        <a href="/ask" class="btn btn-primary">Ask something</a>
+        <a href="/asksomething/question" class="btn btn-primary">Ask something</a>
         <hr>
         <% questions.forEach(question => { %>
             <br>
@@ -17,7 +17,7 @@
                     <%= question.description %>
                 </div>
                 <div class="card-footer">
-                    <a href="/ask/<%= question.id%>"><button class="btn btn-primary">Answer</button></a>
+                    <a href="/asksomething/question/<%= question.id%>"><button class="btn btn-primary">Answer</button></a>
                 </div>
             </div>
         
