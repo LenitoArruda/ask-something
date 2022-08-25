@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const conn = require("./database/Database");
 const Question = require("./database/Ask");
+const Answer = require("./database/Answer")
 
 //Database
 conn.authenticate()
@@ -40,6 +41,28 @@ app.get("/ask",(req,res) => {
     res.render("ask.ejs");
 });
 
+app.get("/ask/:id",(req,res) => {
+    const id = req.params.id;
+    Question.findOne({
+        where: {id: id}
+    }).then(question => {
+        if(question != undefined){
+            Answer.findAll({
+                where: {questionId: question.id},
+                order: [
+                    ['id', 'DESC']
+            ]}).then(answers => {
+                res.render("question.ejs",{
+                    question: question,
+                    answers: answers
+                });
+            })
+        }else{
+            res.redirect("/");
+        }
+    }); 
+});
+
 app.post("/savequestion",(req,res) => {
     const title = req.body.title;
     const description = req.body.description;
@@ -50,6 +73,17 @@ app.post("/savequestion",(req,res) => {
         res.redirect("/");
     });
 });
+
+app.post("/answer", (req, res) => {
+    const body = req.body.body;
+    const questionId = req.body.question;
+    Answer.create({
+        body: body,
+        questionId: questionId
+    }).then(() => {
+        res.redirect("/ask/"+questionId);
+    });
+})
 
 app.listen(8080,()=>{
     console.log("App working!");
