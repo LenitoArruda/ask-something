@@ -1,18 +1,25 @@
 <%- include('./partials/header.ejs')%>
 <body>
     <%- include('./partials/navbar.ejs')%>
+    <br><br>
     <div class="container">
-        <div class="card" id="question-form">
+        <div class="card text-white bg-dark mb-3" id="question-form" >
             <div class="card-header">
                 <h3>Ask something</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="/asksomething/savequestion">
+                <form method="POST" action="/project/asksomething/savequestion">
                     <label>Title</label>
-                    <input type="text" placeholder="Title of your question" class="form-control" name="title"><br>
+                    <input type="text" placeholder="Title of your question" class="form-control" name="title" required><br>
                     <label>Description</label>
-                    <textarea placeholder="Describe your question here" class="form-control" name="description"></textarea><br>
+                    <textarea placeholder="Describe your question here" class="form-control" name="description"required minlength="5"></textarea><br>
                     <button class="btn btn-primary">Ask</button>
+                    &nbsp; <button id="btnRedirect" class="btn btn-primary" type="button" onclick="/project/asksomething">Go back to questions</button>
+                    <script type="text/javascript">
+                        document.getElementById("btnRedirect").onclick = function () {
+                            location.href = "/project/asksomething";
+                        };
+                    </script>
                 </form>
             </div>
         </div>

@@ -73,7 +73,7 @@ app.post("/project/asksomething/savequestion",(req,res) => {
         title: title,
         description: description
     }).then(() => {
-        res.redirect("/");
+        res.redirect("/project/asksomething");
     });
 });
 

@@ -14,48 +14,45 @@
                 <%= question.description %>
             </div>
             <div class="card-footer">
-                <% function dateCustomized(date){ %>
-                    <% var day = date.getDate(); %>
-                    <% if (day.toString().length == 1){ %>
-                        <% day = "0"+day; %>
-                    <% }%>
-                    <% var month = date.getMonth()+1; %>
-                    <% if (month.toString().length == 1){ %>
-                        <% month = "0"+month; %>
-                    <% } %>
-                    <% var year = date.getFullYear(); %> 
-                    <% return day+"/"+month+"/"+year; %>
-                <% } %>
-                <% var questionDate = dateCustomized(question.createdAt) %>
-                <% var answerDate = dateCustomized(question.createdAt) %>
-                Date: <%= questionDate %>
+                <p class="card-date">Date: <%= question.createdAt %> </p>
             </div>
         </div>
         <br>
-        <form method="POST" action="/asksomething/answer">
+        <form method="POST" action="/project/asksomething/answer">
             <label for="body">Answer the question:</label>
             <br>
-            <textarea placeholder="Write your answer" name="body" class="form-control"></textarea>
+            <textarea placeholder="Write your answer" name="body" class="form-control" minlength="10" required></textarea>
             <br>
             <input type="hidden" name="question" value="<%= question.id %>">
-            <button type="submit" class="btn btn-primary">Answer</button>
+            <button type="submit" class="btn btn-primary">Answer</button>&nbsp; <button id="btnRedirect" class="btn btn-primary" type="button" onclick="/project/asksomething">Go back to questions</button>
+            <script type="text/javascript">
+                document.getElementById("btnRedirect").onclick = function () {
+                    location.href = "/project/asksomething";
+                };
+            </script>
         </form>
         <br><br>
-        <hr>
-        <center><h2>Answers</h2></center>
-        <hr>
-        <% answers.forEach(answer => {%>
+        <%  if(answers == 0){ %> 
             <br>
-            <div class="card text-white bg-dark" data-anime="left">
-                <div class="card-body ">
-                    <p><%= answer.body %></p>
+           <center><h3>This question has no answers</h3></center>
+           <br><br><br><br>
+        <% } else { %>
+            <hr>
+            <center><h2>Answers</h2></center>
+            <hr>
+            <% answers.forEach(answer => {%>
+                <br>
+                <div class="card text-white bg-dark" data-anime="left">
+                    <div class="card-body ">
+                        <p><%= answer.body %></p>
+                    </div>
+                    <div class="card-footer">
+                    <p class="card-date">Date: <%= answer.createdAt %> </p>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    Date: <%= questionDate %>
-                </div>
-            </div>
-        <% }) %>
-
+            <% }) %>
+        <% } %>
     </div>
+    <br>
 </body>
 <%- include('./partials/footer.ejs')%>

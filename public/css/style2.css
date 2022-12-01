@@ -111,6 +111,10 @@ body{
     border-color:transparent;
 }
 
+.card-date{
+    font-size:11px;
+}
+
 @media screen and (max-width: 768px){
     .btn_icon_header{
         display: block;
