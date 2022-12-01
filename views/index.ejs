@@ -6,18 +6,19 @@
         <hr>
         <h1 id="question-id">Questions</h1>
         <br>
-        <a href="/asksomething/question" class="btn btn-primary">Ask something</a>
+        <a href="/project/asksomething/question" class="btn btn-primary">Ask something</a>
         <hr>
         <% questions.forEach(question => { %>
             <br>
-            <div class="card">
-                <div class="card-body">
+            <div class="card text-white bg-dark mb-3" data-anime="left">
+                <div class="card-header">
                     <h3><%= question.title %></h3>
-                    <hr>
+                </div>
+                <div class="card-body">
                     <%= question.description %>
                 </div>
                 <div class="card-footer">
-                    <a href="/asksomething/question/<%= question.id%>"><button class="btn btn-primary">Answer</button></a>
+                    <a href="/project/asksomething/question/<%= question.id%>"><button class="btn btn-primary">Answers</button></a>
                 </div>
             </div>
         

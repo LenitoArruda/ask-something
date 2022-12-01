@@ -1,28 +1,57 @@
 <%- include('./partials/header.ejs')%>
 <body>
     <%- include('./partials/navbar.ejs')%>
+    <br><br>
     <div class="container" id="question-box">
         <hr>
-        <h1><%= question.title %></h1>
-        <p><%= question.description %></p>
+        <center><h2>Question</h2></center>
         <hr><br>
+        <div class="card text-white bg-dark" data-anime="left">
+            <div class="card-header">
+                <h3><%= question.title %></h3>
+            </div>
+            <div class="card-body">
+                <%= question.description %>
+            </div>
+            <div class="card-footer">
+                <% function dateCustomized(date){ %>
+                    <% var day = date.getDate(); %>
+                    <% if (day.toString().length == 1){ %>
+                        <% day = "0"+day; %>
+                    <% }%>
+                    <% var month = date.getMonth()+1; %>
+                    <% if (month.toString().length == 1){ %>
+                        <% month = "0"+month; %>
+                    <% } %>
+                    <% var year = date.getFullYear(); %> 
+                    <% return day+"/"+month+"/"+year; %>
+                <% } %>
+                <% var questionDate = dateCustomized(question.createdAt) %>
+                <% var answerDate = dateCustomized(question.createdAt) %>
+                Date: <%= questionDate %>
+            </div>
+        </div>
+        <br>
         <form method="POST" action="/asksomething/answer">
             <label for="body">Answer the question:</label>
             <br>
             <textarea placeholder="Write your answer" name="body" class="form-control"></textarea>
-            <input type="hidden" name="question" value="<%= question.id %>">
             <br>
+            <input type="hidden" name="question" value="<%= question.id %>">
             <button type="submit" class="btn btn-primary">Answer</button>
         </form>
         <br><br>
         <hr>
-        <h3>Answers</h3>
+        <center><h2>Answers</h2></center>
         <hr>
         <% answers.forEach(answer => {%>
             <br>
-            <div class="card">
-                <div class="card-body">
+            <div class="card text-white bg-dark" data-anime="left">
+                <div class="card-body ">
                     <p><%= answer.body %></p>
+                </div>
+                <div class="card-footer">
+                    Date: <%= questionDate %>
                 </div>
             </div>
         <% }) %>

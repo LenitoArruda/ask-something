@@ -3,7 +3,9 @@ const bodyParser = require("body-parser");
 const app = express();
 const conn = require("./database/Database");
 const Question = require("./database/Ask");
-const Answer = require("./database/Answer")
+const Answer = require("./database/Answer");
+
+
 
 //Database
 conn.authenticate()
@@ -17,6 +19,7 @@ conn.authenticate()
 
 //Telling to Express use EJS as View Engine
 app.set('view engine','ejs');
+
 app.use(express.static('public'));
 
 //Body parser
@@ -24,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 //Routes
-app.get("/asksomething", (req,res) =>{
+app.get("/project/asksomething", (req,res) =>{
     
     Question.findAll({raw: true, order:[
         ['id','DESC']
@@ -37,11 +40,11 @@ app.get("/asksomething", (req,res) =>{
 
 });
 
-app.get("/asksomething/question",(req,res) => {
+app.get("/project/asksomething/question",(req,res) => {
     res.render("ask.ejs");
 });
 
-app.get("/asksomething/question/:id",(req,res) => {
+app.get("/project/asksomething/question/:id",(req,res) => {
     const id = req.params.id;
     Question.findOne({
         where: {id: id}
@@ -58,12 +61,12 @@ app.get("/asksomething/question/:id",(req,res) => {
                 });
             })
         }else{
-            res.redirect("/");
+            res.redirect("/project/asksomething");
         }
     }); 
 });
 
-app.post("/asksomething/savequestion",(req,res) => {
+app.post("/project/asksomething/savequestion",(req,res) => {
     const title = req.body.title;
     const description = req.body.description;
     Question.create({
@@ -74,14 +77,14 @@ app.post("/asksomething/savequestion",(req,res) => {
     });
 });
 
-app.post("/asksomething/answer", (req, res) => {
+app.post("/project/asksomething/answer", (req, res) => {
     const body = req.body.body;
     const questionId = req.body.question;
     Answer.create({
         body: body,
         questionId: questionId
     }).then(() => {
-        res.redirect("/asksomething/question/"+questionId);
+        res.redirect("/project/asksomething/question/"+questionId);
     });
 })
 
