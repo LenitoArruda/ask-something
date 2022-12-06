@@ -1,7 +1,7 @@
 # Ask Something
 
-### Project made in order to study and learn more about HTML, CSS and Javascript.
-### The calculator resolves all the basic math operations and registers the last 5 operations.
+### In Progress!! 🚧🚧🚧
+
 
 <br>
 <hr>
