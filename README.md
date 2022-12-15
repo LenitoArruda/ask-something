@@ -1,6 +1,6 @@
 # Ask Something
 
-### In Progress!! 🚧🚧🚧
+### In Progress!! 🚧🚧
 
 
 <br>
